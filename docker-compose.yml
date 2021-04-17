@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.3'
 
 services:
   web:
@@ -9,7 +9,7 @@ services:
       - apparmor:unconfined
     cap_add:
       - SYS_ADMIN
-    command: gunicorn --workers=4 --threads=8 --bind 0.0.0.0:5000 app:app
+    command: /bin/bash -c "gunicorn --workers=4 --threads=8 --bind 0.0.0.0:5000 app:app"
     restart: always
     volumes:
       - ./service/web/:/usr/src/app/
