@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block page_title %}Private Page{% endblock %}
+{% block page_title %}Form{% endblock %}
 {% block body %}
     {{ super() }}
 
@@ -9,8 +9,8 @@
         <script type=text/javascript>
             $(function() {
               $('a#process_input').bind('click', function() {
-                $.post('/', {  
-                  story: $('textarea[name="story"]').val(),
+                $.post('/form', {  
+                  q: $('textarea[name="q"]').val(),
                 }, function(data) {
                   $('#result').text(data.result);
                 });
@@ -19,29 +19,15 @@
             });
         </script>
 
+	<div class='container'>
+		            <form>
+ <textarea id="text_input" rows="20" cols="20" name=story></textarea><br>
+ <a href=# id=process_input><button class='btn btn-default'>Submit</button></a>
+			    </form><br><p><h2 align='center'>Result:</h2><pre id=result align='center'></pre></p></div><hr>
 
-    <hr>
-
-    {% if images %}
-        <h3>Your Files</h3>
-        <table class="table small">
-            <thead>
-                <tr>
-                  <th>File ID</th>
-                  <th>Timestamp</th>
-                  <th>File Name</th>
-                  <th>Action</th>
-                </tr>
-            </thead>
-            {% for image_id, timestamp, image_name, act in images %}
-                    <tr>
-                       <td> {{ image_id }} </td>
-                       <td> {{ timestamp }} </td>
-                       <td> {{ image_name }} </td>
-                    </tr>
-                    
-            {% endfor %}
-        </table>
-    {% endif %}
+<h3>Upload File</h3><form method='post' action='/upload_file' enctype=multipart/form-data>
+	<p><input type=file name=file>
+	<input type=submit value=Upload>
+	</form>
 
 {% endblock %}

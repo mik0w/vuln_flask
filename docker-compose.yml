@@ -9,9 +9,13 @@ services:
       - apparmor:unconfined
     cap_add:
       - SYS_ADMIN
-    command: /bin/bash -c "gunicorn --workers=4 --threads=8 --bind 0.0.0.0:5000 app:app"
+    command: gunicorn --workers=4 --threads=8 --bind 0.0.0.0:5000 app:app
     restart: always
-    volumes:
-      - ./service/web/:/usr/src/app/
+    expose:
+      - 5000
+  nginx:
+    build: ./service/nginx
     ports:
-      - 5000:5000
+      - 80:80
+    depends_on:
+      - web
